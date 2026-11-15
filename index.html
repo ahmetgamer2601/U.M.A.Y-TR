@@ -1,5 +1,10 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>UMAY Navigasyon Gözlüğü</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
@@ -40,6 +45,9 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1.0625rem;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -321,6 +329,9 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
 .rv.pre{opacity:0;transform:translateY(22px)}
 @media (prefers-reduced-motion: reduce){.rv{transition:none}.rv.pre{opacity:1;transform:none}}
 </style>
+</head>
+<body>
+
 
 <div lang="tr">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -832,3 +843,6 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
   start();
 })();
 </script>
+
+</body>
+</html>

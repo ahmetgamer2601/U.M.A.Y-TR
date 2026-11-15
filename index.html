@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>UMAY Navigasyon Gözlüğü</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,7 +111,7 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
 .stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(6,11,24,0) 0%,rgba(6,11,24,.5) 70%,rgba(6,11,24,.88) 100%)}
 .stage::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:30px 30px;-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 55%,transparent 100%)}
 .cards{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;z-index:2}
-.tcard{position:absolute;left:50%;top:50%;width:var(--cw,220px);aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#0A1226;border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 60px -20px rgba(0,0,0,.75);visibility:hidden;will-change:transform,opacity;backface-visibility:hidden}
+.tcard{position:absolute;left:50%;top:50%;margin:calc(var(--cw,220px)*-.625) 0 0 calc(var(--cw,220px)/-2);width:var(--cw,220px);aspect-ratio:4/5;contain:layout style;border-radius:18px;overflow:hidden;background:#0A1226;border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 60px -20px rgba(0,0,0,.75);visibility:hidden;will-change:transform,opacity;backface-visibility:hidden}
 .tcard .art{position:absolute;inset:0;width:100%;height:100%;display:block}
 .tcard .ph{position:absolute;inset:7% 6% 26%;display:none;align-items:center;justify-content:center}
 .tcard.photo .ph{display:flex}
@@ -304,6 +303,18 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .foot a{text-decoration:none}
 .foot a:hover{color:var(--ink)}
+
+/* Hafif mod: telefon ve düşük donanımda ağır efektleri kapatır */
+.lite .aura i,.lite .stage::after{display:none}
+.lite .aura{background:radial-gradient(60% 50% at 15% 10%,rgba(37,99,235,.45),transparent 70%),radial-gradient(55% 50% at 90% 30%,rgba(124,58,237,.4),transparent 70%),radial-gradient(60% 50% at 40% 100%,rgba(225,29,116,.32),transparent 70%),radial-gradient(40% 40% at 90% 95%,rgba(249,115,22,.25),transparent 70%)}
+.lite .tcard{box-shadow:none;border-color:rgba(255,255,255,.14)}
+.lite .tcard .ph img{filter:none}
+.lite .bar{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+.lite .dock .btn-ghost{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(6,11,24,.7)}
+.lite .grad-text,.lite .getcard{animation:none}
+.lite .waves circle{animation:none;opacity:.25}
+.lite .tex{-webkit-mask-image:none;mask-image:none;opacity:.8}
+.lite .rv{transition-duration:.4s}
 
 /* Görünürlük animasyonu: sayfa açılışta tamamdır, yalnızca ekran altındaki öğeler hafifçe kayarak gelir */
 .rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
@@ -586,8 +597,8 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
 <section class="team" id="ekip" aria-labelledby="ekip-h">
   <div class="wrap">
     <span class="eyebrow">Ekip</span>
-    <h2 id="ekip-h">U.M.A.Y TR</h2>
-    <p>Cemal Mümtaz Sosyal Bilimler Lisesi · Eskişehir</p>
+    <h2 id="ekip-h">Takım Adı</h2>
+    <p>Üniversite Adı · Danışman: Ad Soyad</p>
   </div>
 </section>
 
@@ -631,6 +642,8 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
 <script>
 (function(){
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lite=window.matchMedia('(max-width:767px)').matches||window.matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4;
+  if(lite)document.documentElement.classList.add('lite');
 
   /* ---------- Görünürlük animasyonu ve sayaçlar ---------- */
   (function(){
@@ -700,13 +713,13 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
     '<filter id="b'+id+'" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>'+
     '</defs>'+
     '<rect width="200" height="250" fill="url(#bg'+id+')"/>'+
-    '<circle cx="'+(40+b*2)+'" cy="'+(210-a)+'" r="62" fill="'+p[0]+'" opacity=".22" filter="url(#b'+id+')"/>'+
-    '<path d="'+d1+'" fill="none" stroke="#000" stroke-opacity=".5" stroke-width="40" stroke-linecap="round" transform="translate(5 10)" filter="url(#b'+id+')"/>'+
+    (lite?'':'<circle cx="'+(40+b*2)+'" cy="'+(210-a)+'" r="62" fill="'+p[0]+'" opacity=".22" filter="url(#b'+id+')"/>')+
+    (lite?'':'<path d="'+d1+'" fill="none" stroke="#000" stroke-opacity=".5" stroke-width="40" stroke-linecap="round" transform="translate(5 10)" filter="url(#b'+id+')"/>')+
     '<path d="'+d1+'" fill="none" stroke="url(#r'+id+')" stroke-width="38" stroke-linecap="round"/>'+
     '<path d="'+d1+'" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="7" stroke-linecap="round" transform="translate(-3 -9)"/>'+
     '<path d="'+d2+'" fill="none" stroke="url(#s'+id+')" stroke-width="26" stroke-linecap="round" opacity=".92"/>'+
     '<path d="'+d2+'" fill="none" stroke="#fff" stroke-opacity=".24" stroke-width="5" stroke-linecap="round" transform="translate(-2 -6)"/>'+
-    '<path d="'+d3+'" fill="none" stroke="url(#r'+id+')" stroke-width="13" stroke-linecap="round" opacity=".75"/>'+
+    (lite?'':'<path d="'+d3+'" fill="none" stroke="url(#r'+id+')" stroke-width="13" stroke-linecap="round" opacity=".75"/>')+
     '<circle cx="'+cx+'" cy="'+cy+'" r="27" fill="url(#o'+id+')"/>'+
     '</svg>';
   }
@@ -725,10 +738,11 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
     {tag:'Ses',title:'Sesli yönlendirme'},
     {tag:'UMAY',title:'Akıllı gözlük',img:'gozluk-4.png'}
   ];
+  if(lite){DATA=[DATA[0],DATA[2],DATA[3],DATA[5],DATA[6],DATA[9]];}
   var N=DATA.length;
 
   var W=window.innerWidth,H=window.innerHeight,mobile=W<768;
-  var cur=0,tar=0,px=0,py=0,tpx=0,tpy=0,drift=0,last=0,raf=0,running=true;
+  var cur=0,tar=0,px=0,py=0,tpx=0,tpy=0,drift=0,last=0,raf=0,running=true,inView=true,tabOn=true,driftSpeed=lite?0.012:0.016,level=0,slow=0,fc=0;
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 
   var cards=DATA.map(function(d,i){
@@ -765,41 +779,52 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
       var c=cards[i];
       var t=(c.phase+p)%1;if(t<0)t+=1;
       var op=sm(0,0.14,t)*(1-sm(0.86,1,t));
-      if(op<=0.003){c.el.style.visibility='hidden';continue;}
+      if(c.off||op<=0.003){c.el.style.visibility='hidden';continue;}
       var z=far+(near-far)*t;
       var x=c.cos*W*c.rx-px*pan;
       var y=c.sin*H*c.ry-py*pan;
       c.el.style.visibility='visible';
       c.el.style.opacity=op.toFixed(3);
-      c.el.style.transform='translate3d(calc(-50% + '+x.toFixed(1)+'px),calc(-50% + '+y.toFixed(1)+'px),'+z.toFixed(1)+'px) rotateZ('+c.rot+'deg)';
+      c.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,'+z.toFixed(1)+'px) rotateZ('+c.rot+'deg)';
     }
-    copy.style.transform='scale('+(1+cur*0.05).toFixed(4)+')';
+    if(!lite)copy.style.transform='scale('+(1+cur*0.05).toFixed(4)+')';
+  }
+  function degrade(l){
+    level=l;
+    if(l>=1){cards.forEach(function(c,i){if(i%2===1)c.off=true;});tpx=0;tpy=0;}
+    if(l>=2){driftSpeed=0;}
   }
   function tick(now){
     raf=0;
     if(!running)return;
-    var dt=last?Math.min(0.05,(now-last)/1000):0;last=now;
-    drift+=dt*0.016;
+    var raw=last?now-last:16;
+    var dt=Math.min(0.05,raw/1000);last=now;
+    if(raw>34)slow++;
+    if(++fc>=45){if(slow>16&&level<2)degrade(level+1);slow=0;fc=0;}
+    drift+=dt*driftSpeed;
     tar=target();
     cur+=(tar-cur)*0.12;
     px+=(tpx-px)*0.08;
     py+=(tpy-py)*0.08;
     render();
-    raf=requestAnimationFrame(tick);
+    var moving=Math.abs(tar-cur)>0.0004||Math.abs(tpx-px)>0.002||Math.abs(tpy-py)>0.002;
+    if(driftSpeed>0||moving)raf=requestAnimationFrame(tick);
   }
-  function start(){if(!raf){last=0;raf=requestAnimationFrame(tick);}}
+  function start(){if(running&&!raf){last=0;raf=requestAnimationFrame(tick);}}
+  function setRun(){running=inView&&tabOn;if(running)start();}
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){
-      running=es[0].isIntersecting;
-      if(running)start();
-    },{threshold:0}).observe(section);
+    new IntersectionObserver(function(es){inView=es[0].isIntersecting;setRun();},{threshold:0}).observe(section);
   }
-  window.addEventListener('resize',size);
-  window.addEventListener('pointermove',function(e){
-    if(e.pointerType!=='mouse')return;
-    tpx=(e.clientX/window.innerWidth-0.5)*2;
-    tpy=(e.clientY/window.innerHeight-0.5)*2;
-  },{passive:true});
+  document.addEventListener('visibilitychange',function(){tabOn=!document.hidden;setRun();});
+  window.addEventListener('scroll',start,{passive:true});
+  window.addEventListener('resize',function(){size();start();});
+  if(!lite){
+    window.addEventListener('pointermove',function(e){
+      if(e.pointerType!=='mouse'||level>0)return;
+      tpx=(e.clientX/window.innerWidth-0.5)*2;
+      tpy=(e.clientY/window.innerHeight-0.5)*2;
+    },{passive:true});
+  }
   size();
   cur=tar=target();
   drift=0.02;
@@ -807,5 +832,3 @@ h2{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.06;letter-spacing:-.035em}
   start();
 })();
 </script>
-
-</body></html>
